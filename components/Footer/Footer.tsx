@@ -7,7 +7,7 @@ type FooterProps = {
 
 const Wrapper = styled.footer`
 	text-align: center;
-	margin-top: 38px;
+	margin-block: 38px;
 
 	p {
 		margin: 8px 0;
