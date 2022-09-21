@@ -9,7 +9,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 	return {
 		props: {
-			spotifyToken: access_token,
+			spotifyToken: access_token || null,
 		},
 	};
 };

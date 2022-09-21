@@ -10,7 +10,7 @@ const Wrapper = styled.footer`
 	margin-block: 38px;
 
 	p {
-		margin: 8px 0;
+		margin-block: 8px;
 	}
 `;
 

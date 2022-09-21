@@ -33,14 +33,14 @@ const Title = styled.h4`
 `;
 
 const Artists = styled.p`
-	margin: 6px 0;
+	margin-block: 6px;
 `;
 
 const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 	const [spotifyData, setSpotifyData] = useState<SpotifyApi.CurrentlyPlayingResponse | null>(null);
 
 	if (!accessToken) {
-		throw new Error('Spotify token is required');
+		return null;
 	}
 
 	useEffect(() => {
