@@ -7,7 +7,7 @@ type DocumentProps = {
 };
 
 const Document = ({ children }: DocumentProps) => {
-	const [themeColor, setThemeColor] = useState('#FED7BF');
+	const [themeColor, setThemeColor] = useState('');
 
 	useEffect(() => {
 		const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--color-body');
