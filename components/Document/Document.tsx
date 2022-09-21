@@ -41,6 +41,8 @@ const Document = ({ children }: DocumentProps) => {
 					content="Hey! I’m Rosti. I work on developing award-winning applications and web solutions."
 				/>
 				<link rel="canonical" href="https://rosti.no/" />
+				<meta name="theme-color" content="#FED7BF" media="(prefers-color-scheme: light)" />
+				<meta name="theme-color" content="#1A202C" media="(prefers-color-scheme: dark)" />
 				<meta name="theme-color" content="#FED7BF" />
 			</Head>
 			<Container>{children}</Container>
