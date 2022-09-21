@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { Container, Footer } from '../';
 
@@ -7,6 +7,13 @@ type DocumentProps = {
 };
 
 const Document = ({ children }: DocumentProps) => {
+	const [themeColor, setThemeColor] = useState('#FED7BF');
+
+	useEffect(() => {
+		const themeColor = window.matchMedia('(prefers-color-scheme: dark)').matches ? '#1A202C' : '#FED7BF';
+		setThemeColor(themeColor);
+	}, []);
+
 	return (
 		<>
 			<Head>
@@ -21,9 +28,9 @@ const Document = ({ children }: DocumentProps) => {
 				<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
 				<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
 				<link rel="manifest" href="/favicons/site.webmanifest" />
-				<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#FED7BF" />
+				<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color={themeColor} />
 				<link rel="shortcut icon" href="/favicons/favicon.ico" />
-				<meta name="msapplication-TileColor" content="#FED7BF" />
+				<meta name="msapplication-TileColor" content={themeColor} />
 				<meta name="msapplication-config" content="/favicons/browserconfig.xml" />
 				<meta property="og:image" content="/seo-image.jpg" />
 				<meta property="og:type" content="website" />
@@ -41,9 +48,7 @@ const Document = ({ children }: DocumentProps) => {
 					content="Hey! I’m Rosti. I work on developing award-winning applications and web solutions."
 				/>
 				<link rel="canonical" href="https://rosti.no/" />
-				<meta name="theme-color" content="#FED7BF" media="(prefers-color-scheme: light)" />
-				<meta name="theme-color" content="#1A202C" media="(prefers-color-scheme: dark)" />
-				<meta name="theme-color" content="#FED7BF" />
+				<meta name="theme-color" content={themeColor} />
 			</Head>
 			<Container>{children}</Container>
 			<Footer>
