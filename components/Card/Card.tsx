@@ -15,9 +15,9 @@ const Wrapper = styled.div<WrapperProps>`
 	padding: 22px;
 	border-radius: 20px;
 	display: block;
-	background-color: var(--color-white-translucent);
+	background-color: var(--color-card);
 	text-decoration: none;
-	color: var(--color-black);
+	color: var(--color-text);
 `;
 
 const Header = styled.div`
@@ -33,7 +33,7 @@ const IconWrapper = styled.div`
 	width: 42px;
 	height: 42px;
 	border-radius: 50%;
-	background-color: var(--color-white-translucent);
+	background-color: var(--color-card);
 
 	svg {
 		width: 26px;

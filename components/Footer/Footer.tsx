@@ -6,6 +6,7 @@ type FooterProps = {
 };
 
 const Wrapper = styled.footer`
+	color: var(--color-text);
 	text-align: center;
 	margin-block: 38px;
 

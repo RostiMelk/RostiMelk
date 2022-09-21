@@ -10,9 +10,10 @@ type HeaderProps = {
 
 const Wrapper = styled.header`
 	display: flex;
-	margin-bottom: 38px;
 	align-items: center;
+	margin-bottom: 38px;
 	column-gap: 20px;
+	color: var(--color-text);
 `;
 
 const Img = styled(Image)`

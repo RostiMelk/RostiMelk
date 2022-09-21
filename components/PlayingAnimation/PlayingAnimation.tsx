@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 
 	div {
 		height: 100%;
-		background-color: var(--color-black);
+		background-color: var(--color-text);
 		width: 3px;
 		animation: scale 1.2s infinite;
 		transform-origin: bottom;
