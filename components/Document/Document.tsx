@@ -10,7 +10,7 @@ const Document = ({ children }: DocumentProps) => {
 	const [themeColor, setThemeColor] = useState('#FED7BF');
 
 	useEffect(() => {
-		const themeColor = window.matchMedia('(prefers-color-scheme: dark)').matches ? '#1A202C' : '#FED7BF';
+		const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--color-body');
 		setThemeColor(themeColor);
 	}, []);
 
