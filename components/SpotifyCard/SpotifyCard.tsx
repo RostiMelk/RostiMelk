@@ -26,9 +26,10 @@ const TitleWrapper = styled.div`
 	display: flex;
 	align-items: baseline;
 	column-gap: 10px;
-	h4 {
-		margin: 0;
-	}
+`;
+
+const Title = styled.h4`
+	margin: 0;
 `;
 
 const Artists = styled.p`
@@ -81,7 +82,7 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 				<Img src={album.images[1].url} alt={name} />
 				<div>
 					<TitleWrapper>
-						<h4>{name}</h4>
+						<Title>{name}</Title>
 						{spotifyData?.is_playing && <PlayingAnimation />}
 					</TitleWrapper>
 					<Artists>{artists.map((a: any) => a.name).join(', ')}</Artists>

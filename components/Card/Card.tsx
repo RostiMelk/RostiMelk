@@ -44,7 +44,11 @@ const IconWrapper = styled.div`
 const Title = styled.h3`
 	margin: 0;
 	font-weight: 500;
-	font-size: 24px;
+	font-size: 21px;
+
+	@media (min-width: 1024px) {
+		font-size: 24px;
+	}
 `;
 
 const ChildrenWrapper = styled.div`
