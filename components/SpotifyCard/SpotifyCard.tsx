@@ -10,17 +10,24 @@ interface SpotifyCardProps {
 
 const AnimationWrapper = styled.div`
 	max-height: 0;
+	margin-bottom: 20px;
+	border-radius: 20px;
 	overflow: hidden;
-	animation: slide-down 500ms ease-out 20ms forwards;
+	animation: slide-down 500ms cubic-bezier(0.45, 0.05, 0.55, 0.95) 20ms forwards;
 
 	@keyframes slide-down {
 		0% {
 			max-height: 0;
 		}
 		100% {
-			max-height: 300px;
+			max-height: 380px;
 		}
 	}
+`;
+
+const StyledCard = styled(Card)`
+	margin-bottom: 0;
+	border-radius: 0;
 `;
 
 const Wrapper = styled.div`
@@ -93,7 +100,7 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 
 	return (
 		<AnimationWrapper>
-			<Card icon={RiSpotifyFill} title="Currently listening to" href={external_urls.spotify}>
+			<StyledCard icon={RiSpotifyFill} title="Currently listening to" href={external_urls.spotify}>
 				<Wrapper>
 					<Img src={album.images[1].url} alt={name} />
 					<div>
@@ -104,7 +111,7 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 						<Artists>{artists.map((a: any) => a.name).join(', ')}</Artists>
 					</div>
 				</Wrapper>
-			</Card>
+			</StyledCard>
 		</AnimationWrapper>
 	);
 };
