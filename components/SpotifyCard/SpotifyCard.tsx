@@ -14,6 +14,7 @@ const AnimationWrapper = styled.div`
 	border-radius: 20px;
 	overflow: hidden;
 	animation: slide-down 500ms cubic-bezier(0.45, 0.05, 0.55, 0.95) 20ms forwards;
+	will-change: max-height;
 
 	@keyframes slide-down {
 		0% {
