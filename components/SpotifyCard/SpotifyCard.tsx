@@ -95,7 +95,7 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 		setSpotifyData(data);
 	};
 
-	if (!spotifyData || spotifyData?.item?.explicit) return null;
+	if (!spotifyData?.item || spotifyData?.item?.explicit) return null;
 
 	const { external_urls, album, name, artists } = (spotifyData.item as any) || {};
 
