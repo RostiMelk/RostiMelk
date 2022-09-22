@@ -34,15 +34,16 @@ const Home = ({ isWorkRelated, spotifyToken }: HomeProps) => {
 
 			<Card icon={RiLinkedinFill} title="LinkedIn" href="https://linkedin.com/in/rostimelk" />
 			<SpotifyCard accessToken={spotifyToken} />
-			{isWorkRelated && <Card icon={RiMailFill} title="Email" href="mailto:hello@rosti.no" />}
+			<Card icon={RiMailFill} title="Email" href="mailto:hello@rosti.no" hide={!isWorkRelated} />
 			<Card icon={RiTwitterFill} title="Twitter" href="https://twitter.com/rostimelk" />
 			<Card icon={RiGithubFill} title="GitHub" href="https://github.com/rostimelk" />
-			{!isWorkRelated && (
-				<>
-					<Card icon={RiInstagramLine} title="Instagram" href="https://instagram.com/rostimelk" />
-					<Card icon={SiVsco} title="VSCO" href="https://vsco.co/rostimelk" />
-				</>
-			)}
+			<Card
+				icon={RiInstagramLine}
+				title="Instagram"
+				href="https://instagram.com/rostimelk"
+				hide={isWorkRelated}
+			/>
+			<Card icon={SiVsco} title="VSCO" href="https://vsco.co/rostimelk" hide={isWorkRelated} />
 		</Document>
 	);
 };

@@ -10,6 +10,7 @@ type CardProps = {
 	className?: string;
 	children?: React.ReactNode;
 	href?: string;
+	hide?: boolean;
 };
 
 const Wrapper = styled.div<WrapperProps>`
@@ -57,7 +58,13 @@ const ChildrenWrapper = styled.div`
 	margin-top: 26px;
 `;
 
-const Card = React.forwardRef<HTMLDivElement, CardProps>(({ title, icon: icon, className, children, href }, ref) => {
+const Card = React.forwardRef<HTMLDivElement, CardProps>((props, ref) => {
+	const { title, icon: Icon, className, children, href, hide } = props;
+
+	if (hide) {
+		return null;
+	}
+
 	return (
 		<Wrapper
 			ref={ref}
@@ -68,7 +75,9 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(({ title, icon: icon, c
 			rel={href && 'noopener'}
 		>
 			<Header>
-				<IconWrapper>{icon({})}</IconWrapper>
+				<IconWrapper>
+					<Icon />
+				</IconWrapper>
 				<Title>{title}</Title>
 			</Header>
 
