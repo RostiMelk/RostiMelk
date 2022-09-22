@@ -47,8 +47,9 @@ const Document = ({ children }: DocumentProps) => {
 					name="twitter:description"
 					content="Hey! I’m Rosti. I work on developing award-winning applications and web solutions."
 				/>
-				<link rel="canonical" href="https://rosti.no/" />
 				<meta name="theme-color" content={themeColor} />
+				<link rel="canonical" href="https://rosti.no/" />
+				<link rel="preconnect" href="https://api.spotify.com" />
 			</Head>
 			<Container>{children}</Container>
 			<Footer>
