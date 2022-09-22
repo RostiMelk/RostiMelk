@@ -8,6 +8,21 @@ interface SpotifyCardProps {
 	accessToken: string;
 }
 
+const AnimationWrapper = styled.div`
+	max-height: 0;
+	overflow: hidden;
+	animation: slide-down 500ms ease-out 20ms forwards;
+
+	@keyframes slide-down {
+		0% {
+			max-height: 0;
+		}
+		100% {
+			max-height: 300px;
+		}
+	}
+`;
+
 const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
@@ -24,8 +39,8 @@ const Img = styled.img`
 
 const TitleWrapper = styled.div`
 	display: flex;
-	align-items: baseline;
-	column-gap: 10px;
+	align-items: flex-end;
+	column-gap: 8px;
 `;
 
 const Title = styled.h4`
@@ -44,12 +59,12 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 	}
 
 	useEffect(() => {
-		getSpotifyData();
-		const interval = setInterval(() => getSpotifyData(), 60000);
+		fetchSpotifyData();
+		const interval = setInterval(() => fetchSpotifyData(), 60000);
 		return () => clearInterval(interval);
 	}, []);
 
-	const getSpotifyData = async () => {
+	const fetchSpotifyData = async () => {
 		let data = null;
 		const url = new URL('https://api.spotify.com/v1/me/player/currently-playing');
 		url.searchParams.append('market', 'NO');
@@ -77,18 +92,20 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 	const { external_urls, album, name, artists } = (spotifyData.item as any) || {};
 
 	return (
-		<Card icon={RiSpotifyFill} title="Currently listening to" href={external_urls.spotify}>
-			<Wrapper>
-				<Img src={album.images[1].url} alt={name} />
-				<div>
-					<TitleWrapper>
-						<Title>{name}</Title>
-						{spotifyData?.is_playing && <PlayingAnimation />}
-					</TitleWrapper>
-					<Artists>{artists.map((a: any) => a.name).join(', ')}</Artists>
-				</div>
-			</Wrapper>
-		</Card>
+		<AnimationWrapper>
+			<Card icon={RiSpotifyFill} title="Currently listening to" href={external_urls.spotify}>
+				<Wrapper>
+					<Img src={album.images[1].url} alt={name} />
+					<div>
+						<TitleWrapper>
+							<Title>{name}</Title>
+							{spotifyData?.is_playing && <PlayingAnimation />}
+						</TitleWrapper>
+						<Artists>{artists.map((a: any) => a.name).join(', ')}</Artists>
+					</div>
+				</Wrapper>
+			</Card>
+		</AnimationWrapper>
 	);
 };
 

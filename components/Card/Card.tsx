@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { IconType } from 'react-icons/lib/cjs';
 
@@ -6,6 +7,7 @@ type WrapperProps = {};
 type CardProps = {
 	title: string;
 	icon: IconType;
+	className?: string;
 	children?: React.ReactNode;
 	href?: string;
 };
@@ -55,9 +57,16 @@ const ChildrenWrapper = styled.div`
 	margin-top: 26px;
 `;
 
-const Card = ({ icon, title, children, href }: CardProps) => {
+const Card = React.forwardRef<HTMLDivElement, CardProps>(({ title, icon: icon, className, children, href }, ref) => {
 	return (
-		<Wrapper as={href ? 'a' : 'div'} href={href} target={href && '_blank'} rel={href && 'noopener'}>
+		<Wrapper
+			ref={ref}
+			className={className}
+			as={href ? 'a' : 'div'}
+			href={href}
+			target={href && '_blank'}
+			rel={href && 'noopener'}
+		>
 			<Header>
 				<IconWrapper>{icon({})}</IconWrapper>
 				<Title>{title}</Title>
@@ -66,6 +75,6 @@ const Card = ({ icon, title, children, href }: CardProps) => {
 			{children && <ChildrenWrapper>{children}</ChildrenWrapper>}
 		</Wrapper>
 	);
-};
+});
 
 export default Card;

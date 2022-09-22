@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
 	display: flex;
-	column-gap: 3px;
 	height: 20px;
+	margin-bottom: 6px;
+	column-gap: 3px;
 
 	div {
 		height: 100%;
