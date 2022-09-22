@@ -17,7 +17,8 @@ const Wrapper = styled.header`
 	color: var(--color-text);
 `;
 
-const Img = styled(Image)`
+const ImageWrapper = styled.div`
+	overflow: hidden;
 	border-radius: 50%;
 `;
 
@@ -25,15 +26,17 @@ const Header = ({ children, picture, pictureAlt }: HeaderProps) => {
 	return (
 		<Wrapper>
 			{picture && (
-				<Img
-					src={picture}
-					alt={pictureAlt}
-					width={87}
-					height={87}
-					layout="responsive"
-					placeholder="blur"
-					quality={60}
-				/>
+				<ImageWrapper>
+					<Image
+						src={picture}
+						alt={pictureAlt}
+						width={87}
+						height={87}
+						layout="responsive"
+						placeholder="blur"
+						quality={60}
+					/>
+				</ImageWrapper>
 			)}
 			{children && <div>{children}</div>}
 		</Wrapper>
