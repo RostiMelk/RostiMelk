@@ -24,7 +24,17 @@ const Img = styled(Image)`
 const Header = ({ children, picture, pictureAlt }: HeaderProps) => {
 	return (
 		<Wrapper>
-			{picture && <Img src={picture} alt={pictureAlt} width={87} height={87} quality={60} layout="responsive" />}
+			{picture && (
+				<Img
+					src={picture}
+					alt={pictureAlt}
+					width={87}
+					height={87}
+					layout="responsive"
+					placeholder="blur"
+					quality={60}
+				/>
+			)}
 			{children && <div>{children}</div>}
 		</Wrapper>
 	);
