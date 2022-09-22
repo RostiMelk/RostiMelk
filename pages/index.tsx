@@ -22,7 +22,7 @@ interface HomeProps {
 const Home = ({ spotifyToken }: HomeProps) => {
 	return (
 		<Document>
-			<Header picture={portrait}>
+			<Header picture={portrait} pictureAlt="Portrait of Rostislav Melkumyan">
 				<p>
 					Hey! <b>I’m Rosti</b>. I write code and make software go beep boop.
 				</p>

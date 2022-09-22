@@ -9,7 +9,8 @@ type HeaderProps = {
 };
 
 const Wrapper = styled.header`
-	display: flex;
+	display: grid;
+	grid-template-columns: 87px 1fr;
 	align-items: center;
 	margin-bottom: 38px;
 	column-gap: 20px;
@@ -17,17 +18,14 @@ const Wrapper = styled.header`
 `;
 
 const Img = styled(Image)`
-	width: 87px;
-	height: 87px;
 	border-radius: 50%;
-	object-fit: cover;
 `;
 
 const Header = ({ children, picture, pictureAlt }: HeaderProps) => {
 	return (
 		<Wrapper>
-			{picture && <Img src={picture} alt={pictureAlt} />}
-			{children}
+			{picture && <Img src={picture} alt={pictureAlt} width={87} height={87} quality={60} />}
+			{children && <div>{children}</div>}
 		</Wrapper>
 	);
 };
