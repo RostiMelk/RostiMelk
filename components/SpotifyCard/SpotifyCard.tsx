@@ -72,10 +72,14 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 		return () => clearInterval(interval);
 	}, []);
 
-	const fetchSpotifyData = async () => {
+	const fetchSpotifyData = async (fetchEpisodes?: boolean) => {
 		let data = null;
 		const url = new URL('https://api.spotify.com/v1/me/player/currently-playing');
+
 		url.searchParams.append('market', 'NO');
+		if (fetchEpisodes) {
+			url.searchParams.append('type', 'episode');
+		}
 
 		try {
 			const res = await fetch(url.toString(), {
@@ -88,6 +92,9 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 			if (res.ok && res.status === 200) {
 				data = await res.json();
 			}
+			if (data?.currently_playing_type === 'episode' && !data.item) {
+				fetchSpotifyData(true);
+			}
 		} catch (err) {
 			console.error(err);
 		}
@@ -97,19 +104,23 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 
 	if (!spotifyData?.item || spotifyData?.item?.explicit) return null;
 
-	const { external_urls, album, name, artists } = (spotifyData.item as any) || {};
+	const { currently_playing_type, item, is_playing } = (spotifyData as any) || {};
+	const isPodcast = currently_playing_type === 'episode';
+	const spotifyUrl = item.external_urls.spotify;
+	const imageUrl = isPodcast ? item.images[1].url : item.album.images[1].url;
+	const artists = isPodcast ? item.show.publisher : item.artists.map((artist: any) => artist.name).join(', ');
 
 	return (
 		<AnimationWrapper>
-			<StyledCard icon={RiSpotifyFill} title="Currently listening to" href={external_urls.spotify}>
+			<StyledCard icon={RiSpotifyFill} title="Currently listening to" href={spotifyUrl}>
 				<Wrapper>
-					<Img src={album.images[1].url} alt={`Album art for song: ${name}`} />
+					<Img src={imageUrl} alt={`Album art for: ${item.name}`} />
 					<div>
 						<TitleWrapper>
-							<Title>{name}</Title>
-							{spotifyData?.is_playing && <PlayingAnimation />}
+							<Title>{item.name}</Title>
+							{is_playing && <PlayingAnimation />}
 						</TitleWrapper>
-						<Artists>{artists.map((a: any) => a.name).join(', ')}</Artists>
+						<Artists>{artists}</Artists>
 					</div>
 				</Wrapper>
 			</StyledCard>
