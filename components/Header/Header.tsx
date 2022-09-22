@@ -28,6 +28,7 @@ const Header = ({ children, picture, pictureAlt }: HeaderProps) => {
 			{picture && (
 				<ImageWrapper>
 					<Image
+						priority
 						src={picture}
 						alt={pictureAlt}
 						width={87}
