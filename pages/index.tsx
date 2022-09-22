@@ -34,7 +34,7 @@ const Home = ({ isWorkRelated, spotifyToken }: HomeProps) => {
 
 			<Card icon={RiLinkedinFill} title="LinkedIn" href="https://linkedin.com/in/rostimelk" />
 			<SpotifyCard accessToken={spotifyToken} />
-			<Card icon={RiMailFill} title="Email" href="mailto:hello@rosti.no" />
+			{isWorkRelated && <Card icon={RiMailFill} title="Email" href="mailto:hello@rosti.no" />}
 			<Card icon={RiTwitterFill} title="Twitter" href="https://twitter.com/rostimelk" />
 			<Card icon={RiGithubFill} title="GitHub" href="https://github.com/rostimelk" />
 			{!isWorkRelated && (
