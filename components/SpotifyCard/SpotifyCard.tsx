@@ -103,7 +103,7 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 		<AnimationWrapper>
 			<StyledCard icon={RiSpotifyFill} title="Currently listening to" href={external_urls.spotify}>
 				<Wrapper>
-					<Img src={album.images[1].url} alt={name} />
+					<Img src={album.images[1].url} alt={`Album art for song: ${name}`} />
 					<div>
 						<TitleWrapper>
 							<Title>{name}</Title>
