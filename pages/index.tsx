@@ -28,7 +28,10 @@ const Home = ({ isWorkRelated, spotifyToken }: HomeProps) => {
 		<Document>
 			<Header picture={portrait} pictureAlt="Portrait of Rostislav Melkumyan">
 				<p>
-					Hey! <b>I’m Rosti</b>. I write code and make software go beep boop.
+					Hey! <b>I’m Rosti</b>.
+					{isWorkRelated
+						? ' I work on developing award-winning applications and web solutions.'
+						: ' I write code and make software go beep boop.'}
 				</p>
 			</Header>
 
