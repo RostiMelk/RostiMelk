@@ -49,13 +49,30 @@ const Document = ({ children }: DocumentProps) => {
 				/>
 				<meta name="theme-color" content={themeColor} />
 				<link rel="canonical" href="https://rosti.no/" />
-				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-				<link
-					href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"
-					rel="stylesheet"
-				/>
+				{/* Preconnect to Spotify API */}
 				<link rel="preconnect" href="https://api.spotify.com" />
+				{/* Preload fonts */}
+				<link
+					rel="preload"
+					as="font"
+					type="font/woff2"
+					href="/fonts/noto-sans-v27-latin-regular.woff2"
+					crossOrigin="true"
+				/>
+				<link
+					rel="preload"
+					as="font"
+					type="font/woff2"
+					href="/fonts/noto-sans-v27-latin-500.woff2"
+					crossOrigin="true"
+				/>
+				<link
+					rel="preload"
+					as="font"
+					type="font/woff2"
+					href="/fonts/noto-sans-v27-latin-700.woff2"
+					crossOrigin="true"
+				/>
 			</Head>
 			<Container>{children}</Container>
 			<Footer>
