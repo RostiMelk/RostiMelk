@@ -98,7 +98,9 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 			console.error(err);
 		}
 
-		setSpotifyData(data);
+		if (data) {
+			setSpotifyData(data);
+		}
 	};
 
 	if (!spotifyData?.item || spotifyData?.item?.explicit) return null;
