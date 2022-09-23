@@ -66,7 +66,7 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 
 	useEffect(() => {
 		fetchSpotifyData();
-		const interval = setInterval(() => fetchSpotifyData(), 60000);
+		const interval = setInterval(() => fetchSpotifyData(), 30000); // Refresh every 30 seconds
 		return () => clearInterval(interval);
 	}, []);
 
