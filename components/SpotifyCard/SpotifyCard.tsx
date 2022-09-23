@@ -60,11 +60,9 @@ const Artists = styled.p`
 `;
 
 const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
-	const [spotifyData, setSpotifyData] = useState<SpotifyApi.CurrentlyPlayingResponse | null>(null);
+	if (!accessToken) return null;
 
-	if (!accessToken) {
-		return null;
-	}
+	const [spotifyData, setSpotifyData] = useState<SpotifyApi.CurrentlyPlayingResponse | null>(null);
 
 	useEffect(() => {
 		fetchSpotifyData();
@@ -92,6 +90,7 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 			if (res.ok && res.status === 200) {
 				data = await res.json();
 			}
+			// If the user is listening to an episode, fetch the data again, but this time with type=episode
 			if (data?.currently_playing_type === 'episode' && !data.item) {
 				fetchSpotifyData(true);
 			}
