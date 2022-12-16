@@ -4,7 +4,7 @@ interface AmbientBackgroundProps {
 	imageUrl?: string;
 }
 
-const FloatingSpan = styled.span<{ imageUrl?: string }>`
+const FloatingSpan = styled.span<{ imageUrl: string }>`
 	z-index: -1;
 	position: fixed;
 	top: 48%;
@@ -12,13 +12,7 @@ const FloatingSpan = styled.span<{ imageUrl?: string }>`
 	width: 90vw;
 	max-width: 780px;
 	border-radius: 5%;
-
-	// If no image is provided, create a gradient circle
-	background-image: ${({ imageUrl }) =>
-		imageUrl
-			? `url(${imageUrl})`
-			: 'radial-gradient(circle at 50% 50%, var(--color-primary), var(--color-secondary))'};
-
+	background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -45,6 +39,7 @@ const FloatingSpan = styled.span<{ imageUrl?: string }>`
 `;
 
 const AmbientBackground = ({ imageUrl }: AmbientBackgroundProps) => {
+	if (!imageUrl) return null;
 	return <FloatingSpan imageUrl={imageUrl} aria-hidden="true" />;
 };
 
