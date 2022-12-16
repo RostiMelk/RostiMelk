@@ -4,8 +4,20 @@ import { Card } from '../Card/';
 import { RiSpotifyFill } from 'react-icons/ri';
 import { PlayingAnimation } from '../PlayingAnimation';
 
+interface FormattedSpotifyData {
+	albumImage: string;
+	artists: string;
+	isEpisode: boolean;
+	isExplicit: boolean;
+	isPlaying: boolean;
+	spotifyUrl: string;
+	trackName: string;
+}
+
 interface SpotifyCardProps {
 	accessToken: string;
+	hideExplicit?: boolean;
+	onChange?: (data: FormattedSpotifyData | null) => void;
 }
 
 const AnimationWrapper = styled.div`
@@ -28,7 +40,6 @@ const AnimationWrapper = styled.div`
 
 const StyledCard = styled(Card)`
 	margin-bottom: 0;
-	border-radius: 0;
 `;
 
 const Wrapper = styled.div`
@@ -59,44 +70,26 @@ const Artists = styled.p`
 	margin-block: 6px;
 `;
 
-const AmbientBackground = styled.span<{ imageUrl: string }>`
-	z-index: -1;
-	position: fixed;
-	top: 45%;
-	left: 50%;
-	width: 90vw;
-	max-width: 780px;
-	border-radius: 5%;
-	background-image: url(${({ imageUrl }) => imageUrl});
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
-	transition: background-image 0.7s ease-in-out;
-	filter: blur(50px);
-	transform: translate(-50%, -50%);
-	aspect-ratio: 1;
-	object-fit: contain;
+const formatSpotifyData = (data: SpotifyApi.CurrentlyPlayingObject): FormattedSpotifyData | null => {
+	if (!data.item) return null;
+	let { currently_playing_type, item } = (data as any) || {};
+	const isEpisode = currently_playing_type === 'episode';
 
-	&::after {
-		opacity: 0.6;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		content: '';
-		background: var(--color-body);
+	return {
+		albumImage: isEpisode ? item.images[1].url : item.album.images[1].url,
+		artists: isEpisode ? item.show.publisher : item.artists.map((artist: any) => artist.name).join(', '),
+		isEpisode,
+		isExplicit: item.explicit,
+		isPlaying: data.is_playing,
+		spotifyUrl: item.external_urls.spotify,
+		trackName: item.name,
+	};
+};
 
-		@media (prefers-color-scheme: dark) {
-			opacity: 0.8;
-		}
-	}
-`;
-
-const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
+const SpotifyCard = ({ accessToken, hideExplicit, onChange }: SpotifyCardProps) => {
 	if (!accessToken) return null;
 
-	const [spotifyData, setSpotifyData] = useState<SpotifyApi.CurrentlyPlayingResponse | null>(null);
+	const [spotifyData, setSpotifyData] = useState<FormattedSpotifyData | null>(null);
 
 	useEffect(() => {
 		fetchSpotifyData();
@@ -133,37 +126,32 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 		}
 
 		if (data) {
-			setSpotifyData(data);
+			const formattedData = formatSpotifyData(data);
+			setSpotifyData(formattedData);
+			onChange?.(formattedData);
 		}
 	};
 
-	if (!spotifyData?.item || spotifyData?.item?.explicit) return null;
+	if (!spotifyData) return null;
+	const { albumImage, artists, isExplicit, isPlaying, spotifyUrl, trackName } = spotifyData || {};
 
-	const { currently_playing_type, item, is_playing } = (spotifyData as any) || {};
-	const isPodcast = currently_playing_type === 'episode';
-	const spotifyUrl = item.external_urls.spotify;
-	const imageUrl = isPodcast ? item.images[1].url : item.album.images[1].url;
-	const artists = isPodcast ? item.show.publisher : item.artists.map((artist: any) => artist.name).join(', ');
+	if (isExplicit && hideExplicit) return null;
 
 	return (
-		<>
-			<AnimationWrapper>
-				<StyledCard icon={RiSpotifyFill} title="Currently listening to" href={spotifyUrl}>
-					<Wrapper>
-						<Img src={imageUrl} alt={`Album art for: ${item.name}`} />
-						<div>
-							<TitleWrapper>
-								<Title>{item.name}</Title>
-								{is_playing && <PlayingAnimation />}
-							</TitleWrapper>
-							<Artists>{artists}</Artists>
-						</div>
-					</Wrapper>
-				</StyledCard>
-			</AnimationWrapper>
-
-			<AmbientBackground imageUrl={imageUrl} aria-hidden="true" />
-		</>
+		<AnimationWrapper>
+			<StyledCard icon={RiSpotifyFill} title="Currently listening to" href={spotifyUrl}>
+				<Wrapper>
+					<Img src={albumImage} alt={`Album art for: ${trackName}`} />
+					<div>
+						<TitleWrapper>
+							<Title>{trackName}</Title>
+							{isPlaying && <PlayingAnimation />}
+						</TitleWrapper>
+						<Artists>{artists}</Artists>
+					</div>
+				</Wrapper>
+			</StyledCard>
+		</AnimationWrapper>
 	);
 };
 

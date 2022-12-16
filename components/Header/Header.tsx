@@ -18,8 +18,9 @@ const Wrapper = styled.header`
 `;
 
 const ImageWrapper = styled.div`
-	overflow: hidden;
+	z-index: 0;
 	border-radius: 50%;
+	overflow: hidden;
 `;
 
 const Header = ({ children, picture, pictureAlt }: HeaderProps) => {

@@ -1,3 +1,4 @@
+export { AmbientBackground } from './AmbientBackground';
 export { Card } from './Card';
 export { Container } from './Container';
 export { Document } from './Document';

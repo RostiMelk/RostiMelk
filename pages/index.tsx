@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import { getAccessToken } from '../lib/spotify';
 import { isWorkRelatedReferer } from '../lib/utils';
 import portrait from '../public/portrait.jpg';
-import { Document, Header, Card, SpotifyCard } from '../components';
+import { Document, Header, Card, SpotifyCard, AmbientBackground } from '../components';
 import { RiLinkedinFill, RiMailFill, RiTwitterFill, RiGithubFill, RiInstagramLine } from 'react-icons/ri';
 import { SiVsco } from 'react-icons/si';
 
@@ -24,6 +25,8 @@ interface HomeProps {
 }
 
 const Home = ({ isWorkRelated, spotifyToken }: HomeProps) => {
+	const [spotifyImage, setSpotifyImage] = useState<string | undefined>(undefined);
+
 	return (
 		<Document>
 			<Header picture={portrait} pictureAlt="Portrait of Rostislav Melkumyan">
@@ -38,11 +41,20 @@ const Home = ({ isWorkRelated, spotifyToken }: HomeProps) => {
 			<Card icon={RiLinkedinFill} title="LinkedIn" href="https://linkedin.com/in/rostimelk" />
 			<Card icon={RiMailFill} title="Email" href="mailto:hello@rosti.no" hide={!isWorkRelated} />
 			<Card icon={RiGithubFill} title="GitHub" href="https://github.com/rostimelk" hide={!isWorkRelated} />
-			<SpotifyCard accessToken={spotifyToken} />
+			<SpotifyCard
+				accessToken={spotifyToken}
+				hideExplicit={isWorkRelated}
+				onChange={(data) => {
+					if (isWorkRelated && data?.isExplicit) return;
+					setSpotifyImage(data?.albumImage);
+				}}
+			/>
 			<Card icon={RiInstagramLine} title="Instagram" href="https://instagr.am/rostimelk" hide={isWorkRelated} />
 			<Card icon={SiVsco} title="VSCO" href="https://vsco.co/rostimelk" hide={isWorkRelated} />
 			<Card icon={RiTwitterFill} title="Twitter" href="https://twitter.com/rostimelk" />
 			<Card icon={RiGithubFill} title="GitHub" href="https://github.com/rostimelk" hide={isWorkRelated} />
+
+			<AmbientBackground imageUrl={spotifyImage} />
 		</Document>
 	);
 };
