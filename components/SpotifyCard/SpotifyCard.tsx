@@ -59,7 +59,7 @@ const Artists = styled.p`
 	margin-block: 6px;
 `;
 
-const BlurredBackground = styled.span<{ imageUrl: string }>`
+const AmbientBackground = styled.span<{ imageUrl: string }>`
 	z-index: -1;
 	position: fixed;
 	top: 45%;
@@ -161,7 +161,8 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 					</Wrapper>
 				</StyledCard>
 			</AnimationWrapper>
-			<BlurredBackground imageUrl={imageUrl} aria-hidden="true" />
+
+			<AmbientBackground imageUrl={imageUrl} aria-hidden="true" />
 		</>
 	);
 };
