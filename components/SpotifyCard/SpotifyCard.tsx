@@ -11,7 +11,7 @@ interface SpotifyCardProps {
 const AnimationWrapper = styled.div`
 	max-height: 0;
 	margin-bottom: 20px;
-	border-radius: 20px;
+	border-radius: var(--card-radius);
 	overflow: hidden;
 	animation: slide-down 500ms cubic-bezier(0.45, 0.05, 0.55, 0.95) 20ms forwards;
 	will-change: max-height;
@@ -59,6 +59,40 @@ const Artists = styled.p`
 	margin-block: 6px;
 `;
 
+const BlurredBackground = styled.span<{ imageUrl: string }>`
+	z-index: -1;
+	position: fixed;
+	top: 45%;
+	left: 50%;
+	width: 90vw;
+	max-width: 780px;
+	border-radius: 5%;
+	background-image: url(${({ imageUrl }) => imageUrl});
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	transition: background-image 0.7s ease-in-out;
+	filter: blur(50px);
+	transform: translate(-50%, -50%);
+	aspect-ratio: 1;
+	object-fit: contain;
+
+	&::after {
+		opacity: 0.6;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		content: '';
+		background: var(--color-body);
+
+		@media (prefers-color-scheme: dark) {
+			opacity: 0.8;
+		}
+	}
+`;
+
 const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 	if (!accessToken) return null;
 
@@ -66,7 +100,7 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 
 	useEffect(() => {
 		fetchSpotifyData();
-		const interval = setInterval(() => fetchSpotifyData(), 15000); // Refresh every 15 seconds
+		const interval = setInterval(() => fetchSpotifyData(), 10000); // Refresh every 10 seconds
 		return () => clearInterval(interval);
 	}, []);
 
@@ -112,20 +146,23 @@ const SpotifyCard = ({ accessToken }: SpotifyCardProps) => {
 	const artists = isPodcast ? item.show.publisher : item.artists.map((artist: any) => artist.name).join(', ');
 
 	return (
-		<AnimationWrapper>
-			<StyledCard icon={RiSpotifyFill} title="Currently listening to" href={spotifyUrl}>
-				<Wrapper>
-					<Img src={imageUrl} alt={`Album art for: ${item.name}`} />
-					<div>
-						<TitleWrapper>
-							<Title>{item.name}</Title>
-							{is_playing && <PlayingAnimation />}
-						</TitleWrapper>
-						<Artists>{artists}</Artists>
-					</div>
-				</Wrapper>
-			</StyledCard>
-		</AnimationWrapper>
+		<>
+			<AnimationWrapper>
+				<StyledCard icon={RiSpotifyFill} title="Currently listening to" href={spotifyUrl}>
+					<Wrapper>
+						<Img src={imageUrl} alt={`Album art for: ${item.name}`} />
+						<div>
+							<TitleWrapper>
+								<Title>{item.name}</Title>
+								{is_playing && <PlayingAnimation />}
+							</TitleWrapper>
+							<Artists>{artists}</Artists>
+						</div>
+					</Wrapper>
+				</StyledCard>
+			</AnimationWrapper>
+			<BlurredBackground imageUrl={imageUrl} aria-hidden="true" />
+		</>
 	);
 };
 
