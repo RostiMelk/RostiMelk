@@ -14,13 +14,35 @@ type CardProps = {
 };
 
 const Wrapper = styled.div<WrapperProps>`
+	position: relative;
+	display: block;
 	margin-bottom: 20px;
 	padding: 22px;
-	border-radius: 20px;
-	display: block;
-	background-color: var(--color-card);
-	text-decoration: none;
+	border-radius: var(--card-radius);
 	color: var(--color-text);
+	text-decoration: none;
+	background: var(--color-card);
+	transition: all 0.3s ease-in-out;
+
+	&:before {
+		opacity: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: var(--card-radius);
+		content: '';
+		background: var(--color-card);
+		transition: opacity 0.3s ease-in-out;
+		filter: blur(20px);
+		transform: scale(0.9);
+	}
+
+	&:hover:before,
+	&:focus-within:before {
+		opacity: 0.4;
+	}
 `;
 
 const Header = styled.div`
@@ -36,7 +58,7 @@ const IconWrapper = styled.div`
 	width: 42px;
 	height: 42px;
 	border-radius: 50%;
-	background-color: var(--color-card);
+	background: var(--color-card);
 
 	svg {
 		width: 26px;
@@ -48,6 +70,7 @@ const Title = styled.h3`
 	margin: 0;
 	font-weight: 500;
 	font-size: 21px;
+	letter-spacing: 1px;
 
 	@media (min-width: 1024px) {
 		font-size: 24px;
