@@ -3,6 +3,7 @@ import type { GetServerSideProps } from 'next';
 import { getAccessToken } from '../lib/spotify';
 import { isWorkRelatedReferer } from '../lib/utils';
 import portrait from '../public/portrait.jpg';
+import avatar from '../public/avatar.png';
 import { Document, Header, Card, SpotifyCard, AmbientBackground } from '../components';
 import { RiLinkedinFill, RiMailFill, RiTwitterFill, RiGithubFill, RiInstagramLine } from 'react-icons/ri';
 import { SiVsco } from 'react-icons/si';
@@ -29,7 +30,7 @@ const Home = ({ isWorkRelated, spotifyToken }: HomeProps) => {
 
 	return (
 		<Document>
-			<Header picture={portrait} pictureAlt="Portrait of Rostislav Melkumyan">
+			<Header picture={portrait} avatar={avatar} pictureAlt="Portrait of Rostislav Melkumyan">
 				<p>
 					Hey! <b>I’m Rosti</b>.
 					{isWorkRelated
