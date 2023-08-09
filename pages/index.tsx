@@ -6,7 +6,6 @@ import portrait from '../public/portrait.jpg';
 import avatar from '../public/avatar.png';
 import { Document, Header, Card, SpotifyCard, AmbientBackground } from '../components';
 import { RiLinkedinFill, RiMailFill, RiTwitterFill, RiGithubFill, RiInstagramLine } from 'react-icons/ri';
-import { SiVsco } from 'react-icons/si';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
 	const isWorkRelated = isWorkRelatedReferer(ctx.req.headers.referer);
@@ -51,7 +50,6 @@ const Home = ({ isWorkRelated, spotifyToken }: HomeProps) => {
 				}}
 			/>
 			<Card icon={RiInstagramLine} title="Instagram" href="https://instagr.am/rostimelk" hide={isWorkRelated} />
-			<Card icon={SiVsco} title="VSCO" href="https://vsco.co/rostimelk" hide={isWorkRelated} />
 			<Card icon={RiTwitterFill} title="Twitter" href="https://twitter.com/rostimelk" />
 			<Card icon={RiGithubFill} title="GitHub" href="https://github.com/rostimelk" hide={isWorkRelated} />
 
