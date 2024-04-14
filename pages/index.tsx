@@ -33,7 +33,7 @@ const Home = ({ isWorkRelated, spotifyToken }: HomeProps) => {
 				<p>
 					Hey! <b>I’m Rosti</b>.
 					{isWorkRelated
-						? ' I work on developing award-winning applications and web solutions.'
+						? ' I am a Growth engineer at Sanity.io. Been buildings things on the web for a minute now.'
 						: ' I write code and make software go beep boop.'}
 				</p>
 			</Header>
