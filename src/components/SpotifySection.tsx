@@ -95,7 +95,7 @@ export const SpotifySection = async () => {
           </div>
         </figure>
 
-        <div className="overflow-hidden font-mono">
+        <div className="w-full overflow-hidden font-mono">
           <div className="flex">
             <CurrentlyListeningTo />
           </div>

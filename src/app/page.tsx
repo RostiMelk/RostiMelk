@@ -8,7 +8,7 @@ export const fetchCache = "force-no-store";
 
 export default function Home() {
   return (
-    <main className="container relative flex min-h-screen max-w-3xl flex-col gap-20 py-24">
+    <main className="container relative flex min-h-screen max-w-3xl flex-col gap-20 pb-20 pt-24">
       <header className="flex flex-col items-center justify-between gap-10 sm:flex-row">
         <Hero />
         <TicTacToeSection />
@@ -18,13 +18,11 @@ export default function Home() {
         <SpotifySection />
       </Suspense>
 
-      <div className="flex flex-col justify-between sm:flex-row sm:items-center">
-        <LinksSection />
-        <Envelope />
-      </div>
+      <LinksSection />
 
-      <footer className="mt-auto flex">
+      <footer className="mt-auto flex flex-col-reverse justify-between gap-10 sm:flex-row sm:items-end">
         <Footer />
+        <Envelope />
       </footer>
     </main>
   );

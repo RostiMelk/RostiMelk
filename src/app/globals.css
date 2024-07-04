@@ -29,7 +29,7 @@
 }
 
 #envelope {
-  @apply m-20 -rotate-12 overflow-visible fill-bg;
+  @apply mx-20 -rotate-12 overflow-visible fill-bg;
 
   #envelope-image {
     transform: scale(0);
