@@ -3,7 +3,7 @@ import { SpotifySection } from '@/components/SpotifySection';
 import { LinksSection } from '@/components/LinksSection';
 import { Suspense } from 'react';
 
-export const fetchCache = 'force-no-store';
+export const dynamic = 'auto'
 
 export default function Home() {
 	return (
