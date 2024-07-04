@@ -6,4 +6,5 @@ export * from './GitHub';
 export * from './Hero';
 export * from './LinkedIn';
 export * from './Player';
+export * from './TicTacToe';
 export * from './Twitter';

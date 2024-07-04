@@ -21,13 +21,13 @@ const Links = [
 export const LinksSection = async () => {
 	return (
 		<section>
-			<div className="mb-5">
+			<div className="mb-6">
 				<FindMeOn />
 			</div>
 
-			<ul className="flex gap-5 flex-col">
+			<ul className="flex gap-4 flex-col">
 				{Links.map(({ name, url, icon }) => (
-					<li key={name} className="group flex gap-2 items-center h-10">
+					<li key={name} className="group flex gap-2 items-center h-8">
 						<a key={name} href={url} target="_blank" rel="noopener noreferrer">
 							{icon}
 						</a>

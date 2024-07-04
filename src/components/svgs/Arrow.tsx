@@ -5,7 +5,7 @@ export const Arrow = () => (
 		viewBox="0 0 51 42"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		className="draw-arrow"
+		className="animate-draw"
 		aria-hidden="true"
 	>
 		<path
