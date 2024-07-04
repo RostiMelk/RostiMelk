@@ -25,13 +25,13 @@ export const LinksSection = async () => {
 				<FindMeOn />
 			</div>
 
-			<ul className="flex gap-4 flex-col">
+			<ul>
 				{Links.map(({ name, url, icon }) => (
-					<li key={name} className="group flex gap-2 items-center h-8">
-						<a key={name} href={url} target="_blank" rel="noopener noreferrer">
+					<li key={name} className="group flex gap-2 w-fit items-center">
+						<a key={name} href={url} target="_blank" rel="noopener noreferrer" className="flex-wrap py-2">
 							{icon}
 						</a>
-						<span className="group-hover:block  group-focus:block hidden">
+						<span className="group-hover:block group-focus:block hidden">
 							<Arrow />
 						</span>
 					</li>
