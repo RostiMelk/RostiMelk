@@ -1,89 +1,120 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Board, X1, X2, X3, X4, O1, O2, O3, O4 } from './svgs';
+import { useState, useEffect, useCallback } from "react";
+import { Board, X1, X2, X3, X4, O1, O2, O3, O4 } from "./svgs";
+
+type Player = "you" | "com";
 
 const xIcons = [X1, X2, X3, X4];
 const oIcons = [O1, O2, O3, O4];
 
+const winLines = [
+  [0, 1, 2], // Row 1
+  [3, 4, 5], // Row 2
+  [6, 7, 8], // Row 3
+  [0, 3, 6], // Col 1
+  [1, 4, 7], // Col 2
+  [2, 5, 8], // Col 3
+  [0, 4, 8], // Diagonal LTR
+  [2, 4, 6], // Diagonal RTL
+];
+
 export const TicTacToeSection = () => {
-	const [board, setBoard] = useState(Array(9).fill(''));
-	const [turn, setTurn] = useState('X');
+  const [board, setBoard] = useState(Array(9).fill(null));
+  const [turn, setTurn] = useState<Player>("you");
 
-	const checkWin = (board: string[]) => {
-		const lines = [
-			[0, 1, 2],
-			[3, 4, 5],
-			[6, 7, 8], // Rows
-			[0, 3, 6],
-			[1, 4, 7],
-			[2, 5, 8], // Columns
-			[0, 4, 8],
-			[2, 4, 6], // Diagonals
-		];
-		for (let i = 0; i < lines.length; i++) {
-			const [a, b, c] = lines[i];
-			if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-				return board[a];
-			}
-		}
-		return null;
-	};
+  const checkWin = useCallback((currentBoard: string[]) => {
+    for (let i = 0; i < winLines.length; i++) {
+      const [a, b, c] = winLines[i];
+      if (
+        currentBoard[a] &&
+        currentBoard[a] === currentBoard[b] &&
+        currentBoard[a] === currentBoard[c]
+      ) {
+        return currentBoard[a];
+      }
+    }
+    return null;
+  }, []);
 
-	const resetBoard = () => {
-		setBoard(Array(9).fill(''));
-		setTurn('X');
-	};
+  const resetBoard = useCallback(() => {
+    setBoard(Array(9).fill(null));
+    setTurn("you");
+  }, []);
 
-	const handleMove = (index: number) => {
-		if (!board[index] && !checkWin(board)) {
-			const newBoard = [...board];
-			newBoard[index] = turn;
-			setBoard(newBoard);
-			setTurn(turn === 'X' ? 'O' : 'X');
-		}
-	};
+  const handleMove = useCallback(
+    (index: number) => {
+      if (!board[index] && !checkWin(board)) {
+        const newBoard = [...board];
+        newBoard[index] = turn;
+        setBoard(newBoard);
+        setTurn(turn === "you" ? "com" : "you");
+      }
+    },
+    [board, checkWin, turn],
+  );
 
-	const computerMove = () => {
-		const availableIndices = board.map((val, idx) => (val === '' ? idx : null)).filter((val) => val !== null);
-		if (availableIndices.length > 0) {
-			const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)] as number;
-			handleMove(randomIndex);
-		}
-	};
+  const comMove = useCallback(() => {
+    const availableIndices = board
+      .map((val, index) => (val === null ? index : null))
+      .filter((val) => val !== null);
 
-	useEffect(() => {
-		if (turn === 'O') {
-			setTimeout(computerMove, 500);
-		}
-	}, [turn]);
+    if (availableIndices.length === 0) return;
 
-	useEffect(() => {
-		if (checkWin(board) || !board.includes('')) {
-			setTimeout(resetBoard, 2000);
-		}
-	}, [board]);
+    /* Check if the player or computer can win in the next move and block or win accordingly */
+    const peekMove = (player: Player): boolean => {
+      for (let index of availableIndices) {
+        const newBoard = [...board];
+        newBoard[index] = player;
+        if (checkWin(newBoard) === player) {
+          handleMove(index);
+          return true;
+        }
+      }
+      return false;
+    };
 
-	return (
-		<section className="w-full relative max-w-[200px] aspect-square rotate-6 grid place-items-center">
-			<div className="grid grid-cols-3 gap-2 w-full">
-				{board.map((cell, index) => (
-					<button
-						key={index}
-						className="aspect-square p-[20%] grid place-items-center"
-						onClick={() => handleMove(index)}
-					>
-						{cell === 'X'
-							? xIcons[index % xIcons.length]()
-							: cell === 'O'
-							? oIcons[index % oIcons.length]()
-							: null}
-					</button>
-				))}
-			</div>
-			<div className="absolute inset-0 flex pointer-events-none *:w-full">
-				<Board />
-			</div>
-		</section>
-	);
+    if (peekMove("com")) return;
+    if (peekMove("you")) return;
+
+    const randomIndex = Math.floor(Math.random() * availableIndices.length);
+    handleMove(availableIndices[randomIndex]);
+  }, [board, handleMove]);
+
+  useEffect(() => {
+    const win = checkWin(board);
+    const boardFull = !board.includes(null);
+    if (win || boardFull) {
+      setTimeout(resetBoard, 2000);
+    }
+  }, [board, checkWin, resetBoard]);
+
+  useEffect(() => {
+    if (turn === "com") {
+      setTimeout(comMove, 500);
+    }
+  }, [turn, comMove]);
+
+  return (
+    <section className="relative grid aspect-square w-full max-w-[200px] rotate-6 place-items-center">
+      <div className="grid w-full grid-cols-3 gap-2">
+        {board.map((cell: Player, index) => (
+          <button
+            key={index}
+            className="grid aspect-square place-items-center p-[20%]"
+            onClick={() => handleMove(index)}
+          >
+            {cell === "you"
+              ? xIcons[index % xIcons.length]()
+              : cell === "com"
+                ? oIcons[index % oIcons.length]()
+                : null}
+          </button>
+        ))}
+      </div>
+      <div className="pointer-events-none absolute inset-0 flex *:w-full">
+        <Board />
+      </div>
+    </section>
+  );
 };

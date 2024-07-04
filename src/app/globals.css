@@ -3,30 +3,26 @@
 @tailwind utilities;
 
 :root {
-	@apply bg-bg text-fg;
-	cursor: url('/cursors/cursor.svg'), auto;
-	a,
-	button,
-	input {
-		cursor: url('/cursors/pointer.svg'), auto;
-	}
-}
-
-path {
-	@apply stroke-fg;
+  @apply bg-bg text-fg [&_path]:stroke-fg;
+  cursor: url("/cursors/cursor.svg"), auto;
+  a,
+  button,
+  input {
+    cursor: url("/cursors/pointer.svg"), auto;
+  }
 }
 
 .animate-draw {
-	stroke-dasharray: 150;
-	stroke-dashoffset: 150;
-	animation: animate-draw 500ms linear forwards;
-	&:nth-child(2) {
-		animation-delay: 200ms;
-	}
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+  animation: animate-draw 500ms linear forwards;
+  &:nth-child(2) {
+    animation-delay: 200ms;
+  }
 }
 
 @keyframes animate-draw {
-	to {
-		stroke-dashoffset: 0;
-	}
+  to {
+    stroke-dashoffset: 0;
+  }
 }
