@@ -81,7 +81,7 @@ export const TicTacToeSection = () => {
 					</button>
 				))}
 			</div>
-			<div className="absolute inset-0 flex pointer-events-none">
+			<div className="absolute inset-0 flex pointer-events-none &>svg:w-full">
 				<Board />
 			</div>
 		</section>
