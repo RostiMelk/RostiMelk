@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	@apply bg-bg text-fg;
+	cursor: url('/cursors/cursor.svg'), auto;
+	a {
+		cursor: url('/cursors/pointer.svg'), auto;
+	}
+}
+
+path {
+	@apply stroke-fg;
+}
+
+.draw-arrow {
+	stroke-dasharray: 150;
+	stroke-dashoffset: 150;
+	animation: draw-arrow 500ms linear forwards;
+}
+
+@keyframes draw-arrow {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
