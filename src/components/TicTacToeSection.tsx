@@ -97,7 +97,7 @@ export const TicTacToeSection = () => {
 
   return (
     <section className="relative grid aspect-square w-full max-w-[200px] rotate-6 place-items-center">
-      <div className="grid w-full grid-cols-3 gap-2">
+      <div className="grid w-full grid-cols-3">
         {board.map((cell: Player, index) => (
           <button
             key={index}

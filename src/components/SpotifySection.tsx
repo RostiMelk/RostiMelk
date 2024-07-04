@@ -50,7 +50,6 @@ const fetchSpotifyData = async (
         "Content-Type": "application/json",
       },
     });
-    console.log(res);
 
     if (res.ok && res.status === 200) {
       data = await res.json();
