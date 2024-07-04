@@ -1,4 +1,4 @@
-import { Footer, Hero } from "@/components/svgs";
+import { Envelope, Footer, Hero } from "@/components/svgs";
 import { SpotifySection } from "@/components/SpotifySection";
 import { LinksSection } from "@/components/LinksSection";
 import { Suspense } from "react";
@@ -18,7 +18,10 @@ export default function Home() {
         <SpotifySection />
       </Suspense>
 
-      <LinksSection />
+      <div className="flex flex-col justify-between sm:flex-row sm:items-center">
+        <LinksSection />
+        <Envelope />
+      </div>
 
       <footer className="mt-auto flex">
         <Footer />

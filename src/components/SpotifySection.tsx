@@ -83,7 +83,7 @@ export const SpotifySection = async () => {
         rel="noopener noreferrer"
         className="flex flex-col items-center gap-12 sm:flex-row"
       >
-        <figure className="relative grid size-[150px] shrink-0 place-items-center">
+        <figure className="relative grid size-[150px] shrink-0 place-items-center sm:ml-5">
           <img
             src={albumImage}
             alt={`Album art for: ${trackName}`}

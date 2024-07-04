@@ -1,5 +1,6 @@
 export * from "./Arrow";
 export * from "./CurrentlyListeningTo";
+export * from "./Envelope";
 export * from "./FindMeOn";
 export * from "./Footer";
 export * from "./GitHub";
