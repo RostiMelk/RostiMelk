@@ -61,6 +61,18 @@ const config: Config = {
         },
       );
     }),
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          duration: (value) => ({
+            "animation-duration": value,
+          }),
+        },
+        {
+          values: theme("transitionDuration"),
+        },
+      );
+    }),
   ],
 };
 export default config;
