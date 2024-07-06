@@ -353,7 +353,7 @@ export const Hero = () => (
         d="M15.647 159.282C10.7244 158.741 6.4249 163.857 2.10444 160.236"
         strokeWidth="3"
         strokeLinecap="round"
-        className="animate-blink animation-delay-200"
+        className="animate-blink animation-delay-100"
       />
       <path
         d="M22.6354 173.489C17.7896 176.537 14.709 179.76 11.6516 184.496"

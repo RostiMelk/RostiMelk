@@ -30,6 +30,7 @@ const config: Config = {
       blink: "blink 1s step-end infinite",
       pulse: "pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       draw: "draw 500ms linear forwards",
+      "draw-long": "draw 300ms ease-on-out forwards",
     },
     keyframes: {
       spin: {
