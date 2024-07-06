@@ -20,7 +20,7 @@ export default function Home() {
 
       <LinksSection />
 
-      <footer className="mt-auto flex flex-col-reverse justify-between gap-10 sm:flex-row sm:items-end">
+      <footer className="flex flex-col-reverse justify-between gap-10 sm:flex-row sm:items-end">
         <Footer />
         <Envelope />
       </footer>
