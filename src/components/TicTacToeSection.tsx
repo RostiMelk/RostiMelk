@@ -6,7 +6,7 @@ import { Board, X1, X2, X3, X4, O1, O2, O3, O4 } from "./svgs";
 type Player = "you" | "com";
 type Board = Array<Player | null>;
 
-type WinRes = {
+type Winner = {
   winner: Player | null;
   lineIndex: number | null;
 };
@@ -40,8 +40,9 @@ export const TicTacToeSection = () => {
   const [turn, setTurn] = useState<Player>("you");
   const [board, setBoard] = useState<Board>(Array(9).fill(null));
   const [winningLineIndex, setWinningLineIndex] = useState<number | null>(null);
+  const [matches, setMatches] = useState<Winner[]>([]);
 
-  const checkWin = useCallback((currentBoard: Board): WinRes => {
+  const checkWin = useCallback((currentBoard: Board): Winner => {
     for (let i = 0; i < winPaths.length; i++) {
       const [a, b, c] = winPaths[i];
       if (
@@ -60,6 +61,13 @@ export const TicTacToeSection = () => {
     setBoard(Array(9).fill(null));
     setWinningLineIndex(null);
   }, []);
+
+  const countWins = useCallback(
+    (player: Player) => {
+      return matches.filter(({ winner }) => winner === player).length;
+    },
+    [matches],
+  );
 
   const handleMove = useCallback(
     (index: number) => {
@@ -101,11 +109,14 @@ export const TicTacToeSection = () => {
   }, [board, handleMove]);
 
   useEffect(() => {
-    const { winner, lineIndex } = checkWin(board);
-    if (winner) {
-      setTimeout(() => setWinningLineIndex(lineIndex), 500);
+    const match = checkWin(board);
+
+    if (match.winner) {
+      setMatches((prev) => [...prev, match]);
+      setTimeout(() => setWinningLineIndex(match.lineIndex), 500);
       setTimeout(resetBoard, 2500);
     } else if (!board.includes(null)) {
+      setMatches((prev) => [...prev, match]);
       setTimeout(resetBoard, 1000);
     }
   }, [board, checkWin, resetBoard]);
@@ -115,6 +126,11 @@ export const TicTacToeSection = () => {
       setTimeout(comMove, 500);
     }
   }, [turn, comMove]);
+
+  useEffect(() => {
+    if (matches.length === 0) return;
+    document.title = `You: ${countWins("you")} | Com: ${countWins("com")}`;
+  }, [matches]);
 
   return (
     <section className="relative grid aspect-square w-full max-w-[200px] rotate-6 place-items-center">
