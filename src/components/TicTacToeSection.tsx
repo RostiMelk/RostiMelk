@@ -57,7 +57,6 @@ export const TicTacToeSection = () => {
   }, []);
 
   const resetBoard = useCallback(() => {
-    setTurn("you");
     setBoard(Array(9).fill(null));
     setWinningLineIndex(null);
   }, []);
@@ -112,12 +111,18 @@ export const TicTacToeSection = () => {
     const match = checkWin(board);
 
     if (match.winner) {
-      setMatches((prev) => [...prev, match]);
       setTimeout(() => setWinningLineIndex(match.lineIndex), 500);
       setTimeout(resetBoard, 2500);
     } else if (!board.includes(null)) {
-      setMatches((prev) => [...prev, match]);
       setTimeout(resetBoard, 1000);
+    }
+
+    if (match.winner || !board.includes(null)) {
+      setMatches((prev) => {
+        const newMatches = [...prev, match];
+        setTurn(newMatches.length % 2 === 0 ? "you" : "com");
+        return newMatches;
+      });
     }
   }, [board, checkWin, resetBoard]);
 
