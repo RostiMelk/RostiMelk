@@ -106,7 +106,7 @@ export const TicTacToeSection = () => {
       setTimeout(() => setWinningLineIndex(lineIndex), 500);
       setTimeout(resetBoard, 2500);
     } else if (!board.includes(null)) {
-      setTimeout(resetBoard, 2000);
+      setTimeout(resetBoard, 1000);
     }
   }, [board, checkWin, resetBoard]);
 
