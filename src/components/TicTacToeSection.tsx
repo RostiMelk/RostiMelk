@@ -120,7 +120,7 @@ export const TicTacToeSection = () => {
     if (match.winner || !board.includes(null)) {
       setMatches((prev) => {
         const newMatches = [...prev, match];
-        setTurn(newMatches.length % 2 === 0 ? "you" : "com");
+        setTurn(newMatches.length % 2 === 0 ? "com" : "you");
         return newMatches;
       });
     }
