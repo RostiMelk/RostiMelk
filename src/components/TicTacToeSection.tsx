@@ -37,7 +37,7 @@ const winLineStyles: Record<number, React.CSSProperties> = [
 ];
 
 export const TicTacToeSection = () => {
-  const [turn, setTurn] = useState<Player>("you");
+  const [turn, setTurn] = useState<Player>("com");
   const [board, setBoard] = useState<Board>(Array(9).fill(null));
   const [winningLineIndex, setWinningLineIndex] = useState<number | null>(null);
   const [matches, setMatches] = useState<Winner[]>([]);
