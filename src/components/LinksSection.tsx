@@ -12,8 +12,8 @@ const Links = [
     icon: <LinkedIn />,
   },
   {
-    name: "Twitter",
-    url: "https://twitter.com/rostimelk",
+    name: "Bluesky",
+    url: "https://bsky.app/profile/rosti.no",
     icon: <Twitter />,
   },
 ];
