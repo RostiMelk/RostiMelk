@@ -143,8 +143,12 @@ export const TicTacToeSection = () => {
         {board.map((cell, index) => (
           <button
             key={index}
+            type="button"
             className="grid aspect-square place-items-center p-[20%]"
             onClick={() => handleMove(index)}
+            disabled={
+              turn !== "you" || cell !== null || checkWin(board).winner !== null
+            }
           >
             {cell === "you" && xIcons[index % xIcons.length]()}
             {cell === "com" && oIcons[index % oIcons.length]()}
@@ -159,8 +163,9 @@ export const TicTacToeSection = () => {
           viewBox="0 0 193 193"
           fill="none"
         >
+          <title>Winning Line</title>
           <path
-            className="animate-draw-long absolute"
+            className="absolute animate-draw-long"
             style={winLineStyles[winningLineIndex]}
             d="M2 2C2.02358 2.1672 7.86947 2 7.86947 2C22.6845 4.51457 37.1533 6.09562 52.178 6.9985C73.172 8.2601 94.534 8.11832 115.591 7.71257C123.16 7.56673 130.821 6.02201 138.378 5.87639C146.457 5.72071 154.622 6.79448 162.777 6.79448C162.777 6.79448 173.491 6.0416 179.828 5.87639C181.267 5.83888 193.613 6.79448 190.498 6.79448"
             strokeWidth="3"
