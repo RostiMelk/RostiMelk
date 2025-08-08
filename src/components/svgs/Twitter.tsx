@@ -2,7 +2,7 @@ export const Twitter = () => (
   <>
     <p className="sr-only">Twitter</p>
     <svg
-      className="rotate-180"
+      className="-scale-y-100"
       width="97"
       height="33"
       viewBox="0 0 97 33"
